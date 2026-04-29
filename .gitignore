@@ -1,0 +1,46 @@
+# Rust
+/target
+/server/target
+**/*.rs.bk
+Cargo.lock.bak
+
+# Node / SvelteKit
+/web/node_modules
+/web/.svelte-kit
+/web/build
+/web/.vercel
+/web/.env
+/web/.env.*
+
+# User-supplied screenshots, mockups, and logo source files — local only.
+/downloads/
+
+# Editor / OS
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Postern runtime
+/data
+/data-*
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+/deploy/docker/.env
+.env
+.env.local
+
+# Backups
+/backups
+/var/lib/postern
+
+# Secrets and keys (belt-and-braces; should never be committed anyway)
+*.pem
+*.key
+wg0.conf
+cloudflared-token*
+Cargo.lock
+.claude/

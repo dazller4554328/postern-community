@@ -1,0 +1,143 @@
+[package]
+name = "postern"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+authors.workspace = true
+description = "Privacy-first self-hosted email client"
+
+[lints]
+workspace = true
+
+
+[[bin]]
+name = "postern"
+path = "src/main.rs"
+
+[dependencies]
+# async runtime + http
+tokio = { version = "1.41", features = ["rt-multi-thread", "macros", "signal", "net", "fs", "sync", "time", "process"] }
+tokio-util = { version = "0.7", features = ["io"] }
+axum = { version = "0.7", features = ["macros", "multipart"] }
+tower = "0.5"
+tower-http = { version = "0.6", features = ["trace", "fs", "cors", "compression-br", "set-header"] }
+hyper = "1.5"
+
+# logging
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+
+# serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# errors
+anyhow = "1.0"
+thiserror = "1.0"
+
+# storage — Sprint 6: SQLCipher-capable rusqlite. Compiled-in SQLCipher
+# still opens plain SQLite databases (no `PRAGMA key` needed), so this
+# is a drop-in upgrade for pre-encryption installs.
+rusqlite = { version = "0.32", features = ["bundled-sqlcipher-vendored-openssl", "chrono", "backup"] }
+r2d2 = "0.8"
+r2d2_sqlite = "0.25"
+
+# hashing + encoding
+sha2 = "0.10"
+hex = "0.4"
+base64 = "0.22"
+
+# time
+chrono = { version = "0.4", default-features = false, features = ["clock", "serde"] }
+
+# cli
+clap = { version = "4.5", features = ["derive", "env"] }
+
+# IMAP (sync client, driven from tokio via spawn_blocking).
+# Rationale: the sync `imap` crate is the most battle-tested; async variants
+# have unstable APIs. We'll revisit for IDLE push in a later sprint.
+imap = "2.4"
+native-tls = "0.2"
+
+# SMTP outbound. Sync `lettre` with tokio spawn_blocking, matching imap.
+lettre = { version = "0.11", default-features = false, features = ["smtp-transport", "native-tls", "builder"] }
+uuid = { version = "1.11", features = ["v4"] }
+# socket2 gives us SO_BINDTODEVICE for raw TcpStreams used by the
+# synchronous `imap` crate. reqwest already has `.interface()`.
+socket2 = { version = "0.5", features = ["all"] }
+
+# email parsing
+mail-parser = "0.9"
+
+# HTML sanitization for the inert-render pipeline.
+ammonia = "4"
+
+# OpenPGP via rPGP. Pure Rust, no gpg binary required at runtime.
+# Used for: key gen, keyring, decrypt-on-receive, verify, encrypt-on-send.
+pgp = "0.14"
+smallvec = "1"
+sha1 = "0.10"
+# Gravatar still uses MD5 of the email for avatar URLs — the one use
+# case we have for a pre-crypto hash.
+md-5 = "0.10"
+
+# HTTP client for the server-side image proxy. rustls to avoid native-tls
+# build complexity; cookie+referer stripping is the whole point.
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "stream", "json", "multipart"] }
+
+# short-lived tokens for /img-proxy/:token URLs
+rand = "0.8"
+
+# Master-password-derived key encryption (Sprint 5 KEK).
+argon2 = { version = "0.5", features = ["std"] }
+chacha20poly1305 = "0.10"
+zeroize = "1"
+hkdf = "0.12"
+
+# TOTP (RFC 6238) for the optional second factor at vault unlock.
+# Default features bring in serde + url, both of which we use to
+# emit the otpauth:// provisioning URL the SPA renders into a QR.
+totp-rs = { version = "5", features = ["otpauth", "gen_secret", "qr"] }
+# Pin the transitive `image` dep that totp-rs's `qr` feature pulls
+# in (via qrcodegen-image). Image 0.25.7+ requires Rust 1.88; we
+# pin the toolchain at 1.87 so we cap here to keep docker builds
+# happy. Bump together with the rust-toolchain bump if/when we move.
+image = { version = "=0.25.6", default-features = false, features = ["png"] }
+# Constant-time byte comparison for recovery-code lookups, so the
+# code-hash check doesn't leak length-prefix differences via timing.
+subtle = "2"
+
+# Calendar: iCalendar parsing, RRULE expansion, and XML for the CalDAV
+# wire protocol. We ship our own CalDAV client (reqwest + quick-xml)
+# because the ecosystem's options are either unmaintained or
+# opinionated in ways that don't fit the sync-into-local-DB model.
+icalendar = { version = "0.16", features = ["chrono-tz"] }
+rrule = "0.13"
+quick-xml = { version = "0.36", features = ["serialize"] }
+chrono-tz = "0.10"
+
+# Mail import. `zip` extracts user-uploaded Maildir / .eml archives;
+# `tempfile` gives us per-request scratch dirs we can drop on panic.
+zip = { version = "2", default-features = false, features = ["deflate"] }
+tempfile = "3.13"
+
+# SFTP off-site backup destination. Pure-Rust SSH client + SFTP layer
+# so we don't pull in libssh2 as a system dep on the deploy box.
+russh = "0.45"
+russh-sftp = "2.0"
+async-trait = "0.1"
+# Stream traits for the LLM streaming-chat path. reqwest already
+# pulls a compatible `futures-core`; we use the higher-level
+# `futures-util` for `.next()` on response byte streams.
+futures-util = { version = "0.3", default-features = false, features = ["std"] }
+# async-stream's stream! macro lets us write generator-style async
+# code that yields `StreamChunk`s — far more readable than building
+# a custom Stream impl by hand for the buffering state machine.
+async-stream = "0.3"
+
+# Pin transitive `home` to the last 1.87-compatible version. russh's
+# transitive dep tree pulls in `home`, whose 0.5.12+ requires
+# rustc 1.88. We're on 1.87 in CI; lift this when we bump.
+home = "=0.5.11"

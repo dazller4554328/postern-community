@@ -1,0 +1,16 @@
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+  plugins: [sveltekit()],
+  server: {
+    port: 5173,
+    strictPort: true,
+    proxy: {
+      '/api': 'http://127.0.0.1:8080',
+      '/img-proxy': 'http://127.0.0.1:8080',
+      '/health': 'http://127.0.0.1:8080',
+      '/version': 'http://127.0.0.1:8080'
+    }
+  }
+});

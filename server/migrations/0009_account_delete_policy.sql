@@ -1,0 +1,1 @@
+ALTER TABLE accounts ADD COLUMN delete_after_sync INTEGER NOT NULL DEFAULT 0;

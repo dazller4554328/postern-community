@@ -1,0 +1,96 @@
+# Postern Community — local docker compose stack.
+#
+# One container, bound to 127.0.0.1 so the web UI is only reachable
+# from the machine it's running on. There is NO remote-access story
+# built into the community build; if you want mail access from a
+# phone while roaming, see Postern (paid).
+#
+# Data persists in a docker volume so an image upgrade doesn't nuke
+# your mailbox on every pull.
+#
+# Usage:
+#   docker compose -f deploy/community/docker-compose.yml up -d
+#   open http://127.0.0.1:8080
+
+name: postern-community
+
+services:
+  postern:
+    image: ghcr.io/dazller4554328/postern-community:latest
+    # Uncomment to build locally instead of pulling from GHCR:
+    # build:
+    #   context: ../..
+    #   dockerfile: deploy/community/Dockerfile
+    restart: unless-stopped
+    environment:
+      POSTERN_BIND: 0.0.0.0:8080
+      POSTERN_DATA_DIR: /var/lib/postern/data
+      POSTERN_STATIC_DIR: /usr/share/postern/web
+      RUST_LOG: ${RUST_LOG:-info}
+    ports:
+      # 127.0.0.1 only — never expose the free build to the open
+      # internet. There's no auth gate beyond the vault password,
+      # and no DoS protection worth relying on.
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - postern-data:/var/lib/postern/data
+      - postern-backups:/var/lib/postern/backups
+      # Shared socket for the optional document-conversion sandbox.
+      # If the `viewer` profile isn't enabled the dir is empty and
+      # Postern gracefully degrades to "Preview not available for
+      # this format — use Download."
+      - viewer-socket:/run/viewer
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:8080/health | grep -q ok"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+  # ── Optional: document-conversion sandbox ────────────────────────
+  # Disabled by default because the image is ~700MB (LibreOffice).
+  # Enable with:
+  #   docker compose --profile viewer up -d
+  #
+  # Runs with network_mode: none, read_only: true, no caps, no
+  # privilege escalation, tmpfs-only writable paths, per-request
+  # temp dir. LibreOffice converts untrusted Office / OpenDocument
+  # attachments to PDF; main Postern talks to it over a Unix socket
+  # on the shared `viewer-socket` volume. No HTTP, no DNS, no
+  # network at all — if there's an unpatched LibreOffice parser bug
+  # an attacker lands in a neutered container with no way out.
+  #
+  # For stronger isolation (user-space kernel syscall filtering via
+  # gVisor) see deploy/viewer/README.md.
+  postern-viewer:
+    build:
+      context: ../viewer
+      dockerfile: Dockerfile
+    image: postern-viewer:latest
+    restart: unless-stopped
+    network_mode: none
+    read_only: true
+    cap_drop: [ALL]
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 128
+    mem_limit: 1g
+    tmpfs:
+      - /tmp:mode=1777,size=512m
+    volumes:
+      - viewer-socket:/run/viewer
+    profiles: ["viewer"]
+
+volumes:
+  postern-data:
+  postern-backups:
+  # tmpfs-backed so the socket file vanishes on restart. uid=65534
+  # (nobody) matches the viewer container's user so it can bind()
+  # the socket; mode=0777 lets the main Postern container (uid 0)
+  # reach the socket too. No host-side exposure — the volume only
+  # exists between these two containers.
+  viewer-socket:
+    driver_opts:
+      type: tmpfs
+      device: tmpfs
+      o: "uid=65534,gid=65534,mode=0777"
