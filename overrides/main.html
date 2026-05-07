@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{#-
+  Inject a hero section above the tabs, but only on the homepage.
+  Pattern lifted from Material for MkDocs' own docs site.
+-#}
+{% block tabs %}
+  {{ super() }}
+  {% if page and page.is_homepage %}
+    <section class="tx-container">
+      <div class="md-grid md-typeset">
+        <div class="tx-hero">
+          <div class="tx-hero__content">
+            <h1>Your email, your keys, your server.</h1>
+            <p>
+              Postern is a privacy-first, self-hosted email client. Your PGP
+              keys live on your machine — never on a provider — and Autocrypt
+              handshakes happen quietly between clients. Works with any IMAP
+              account.
+            </p>
+            <a href="{{ 'install/' | url }}"
+               class="md-button md-button--primary">
+              Get started
+            </a>
+            <a href="{{ config.repo_url }}"
+               class="md-button">
+              Go to GitHub
+            </a>
+          </div>
+          <div class="tx-hero__image">
+            <img
+              src="{{ 'assets/screenshots/postern_landing_dark.png' | url }}"
+              alt="Postern inbox with Datas chat panel"
+              draggable="false"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+    {#- Hide the markdown-derived H1 on the homepage only — the hero owns it. -#}
+    <style>
+      .md-content__inner > h1:first-of-type { display: none; }
+    </style>
+  {% endif %}
+{% endblock %}
+

@@ -1,0 +1,120 @@
+site_name: Postern Docs
+site_url: https://docs.postern.email/
+site_description: Privacy-first self-hosted email client — installation, setup, and reference.
+site_author: Postern
+copyright: Postern. Source under Apache 2.0.
+
+repo_name: dazller4554328/postern-community
+repo_url: https://github.com/dazller4554328/postern-community
+edit_uri: edit/main/docs/
+
+docs_dir: docs
+
+theme:
+  name: material
+  custom_dir: overrides
+  language: en
+  favicon: assets/favicon.svg
+  features:
+    - announce.dismiss
+    - content.action.edit
+    - content.code.annotate
+    - content.code.copy
+    - content.tabs.link
+    - content.tooltips
+    - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.path
+    - navigation.sections
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.top
+    - navigation.tracking
+    - search.highlight
+    - search.share
+    - search.suggest
+    - toc.follow
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+    edit: material/file-edit-outline
+
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/dazller4554328/postern-community
+      name: Postern on GitHub
+  homepage: https://postern.email
+
+extra_css:
+  - assets/stylesheets/home.css
+
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+      title: On this page
+  - pymdownx.betterem
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+plugins:
+  - search
+  - minify:
+      minify_html: true
+
+nav:
+  - Home: index.md
+  - Install:
+      - install/index.md
+      - Home server / NUC: install/home-server.md
+      - Community edition: install/community.md
+  - Guides:
+      - guides/index.md
+      - Gmail app password: guides/gmail-app-password.md
+  - Reference:
+      - reference/index.md
+      - Storage invariants: reference/storage-invariants.md
+      - Migrating from Mailpile: reference/migration-from-mailpile.md

@@ -1,0 +1,30 @@
+  .shell {
+    position: fixed;
+    inset: 0;
+    display: grid;
+    /* Third row collapses to 0 when AskBox isn't rendered. The
+       AskBox itself owns its height via --askbox-h (a CSS variable
+       it sets on document.documentElement so the inbox doesn't have
+       to know about resize state). */
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-columns: 1fr;
+    gap: 0.95rem;
+    padding: 1rem;
+    box-sizing: border-box;
+  }
+  .main-grid {
+    display: grid;
+    grid-template-columns: minmax(0, var(--sidebar-width, 18rem)) 6px minmax(0, 1fr);
+    min-height: 0;
+    min-width: 0;
+    overflow: hidden;
+    background: color-mix(in oklab, var(--surface) 92%, transparent);
+    border: 1px solid color-mix(in oklab, var(--border) 100%, transparent);
+    border-radius: 1.25rem;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.04) inset,
+      0 18px 50px rgba(0, 0, 0, 0.12);
+  }
+  .main-grid.sidebar-hidden {
+    grid-template-columns: 1fr;
+  }
