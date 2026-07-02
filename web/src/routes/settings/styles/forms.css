@@ -1,0 +1,388 @@
+  /* ── Mailbox-colour picker ─────────────────────────────────────── */
+  article.settings-shell .color-row {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  article.settings-shell .color-preview {
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in oklab, currentColor 18%, transparent);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+    flex-shrink: 0;
+  }
+  article.settings-shell .color-swatches {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  article.settings-shell .swatch {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in oklab, currentColor 12%, transparent);
+    cursor: pointer;
+    padding: 0;
+    transition: transform 80ms ease-out;
+  }
+  article.settings-shell .swatch:hover { transform: scale(1.12); }
+  article.settings-shell .swatch.active {
+    box-shadow: 0 0 0 2px var(--bg), 0 0 0 4px currentColor;
+  }
+  article.settings-shell .color-input {
+    width: 2rem;
+    height: 1.6rem;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 0.35rem;
+    background: transparent;
+    cursor: pointer;
+  }
+  article.settings-shell .color-input::-webkit-color-swatch-wrapper { padding: 1px; }
+  article.settings-shell .color-input::-webkit-color-swatch { border: 0; border-radius: 0.25rem; }
+  article.settings-shell .btn.small {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.72rem;
+  }
+
+  article.settings-shell /* ---- Form primitives ---- */
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  article.settings-shell .field.static {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  article.settings-shell .field-label label,
+  article.settings-shell .field-label > span {
+    font-size: 0.82rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+  }
+  article.settings-shell .field-help {
+    margin: 0;
+    font-size: 0.76rem;
+    color: var(--muted);
+    line-height: 1.55;
+    padding: 0.55rem 0.75rem;
+    border-left: 2px solid color-mix(in oklab, var(--accent) 45%, transparent);
+    background: color-mix(in oklab, var(--accent) 5%, transparent);
+    border-radius: 0 0.6rem 0.6rem 0;
+  }
+  article.settings-shell .field-help strong {
+    color: color-mix(in oklab, goldenrod 70%, var(--fg));
+    font-weight: 700;
+  }
+  article.settings-shell .toggle-row {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.86rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  article.settings-shell .toggle-row input[type='checkbox'] {
+    width: 1.05rem;
+    height: 1.05rem;
+    accent-color: var(--accent);
+    cursor: pointer;
+  }
+  article.settings-shell fieldset.nested {
+    border: 0;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    transition: opacity 160ms;
+  }
+  article.settings-shell fieldset.nested[disabled] {
+    opacity: 0.45;
+    pointer-events: none;
+  }
+  article.settings-shell .static-value {
+    font-size: 0.84rem;
+    opacity: 0.65;
+  }
+
+  article.settings-shell .std-select,
+  article.settings-shell .std-input {
+    font: inherit;
+    font-size: 0.88rem;
+    padding: 0.52rem 0.7rem;
+    border: 1px solid color-mix(in oklab, currentColor 18%, transparent);
+    background: color-mix(in oklab, currentColor 3%, transparent);
+    color: inherit;
+    border-radius: 0.55rem;
+    min-width: 14rem;
+  }
+  article.settings-shell .std-input.mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.82rem;
+  }
+  article.settings-shell .std-select option {
+    background: var(--surface);
+    color: var(--fg);
+  }
+
+  article.settings-shell .auto-block {
+    margin-top: 0.2rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.9rem;
+    background: color-mix(in oklab, var(--accent) 4%, transparent);
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+  article.settings-shell .auto-head {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  article.settings-shell .auto-head strong {
+    font-size: 0.9rem;
+    font-weight: 650;
+  }
+  article.settings-shell .auto-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    transition: opacity 160ms;
+  }
+  article.settings-shell .auto-inner.dim {
+    opacity: 0.5;
+  }
+  article.settings-shell .toggle-row.compact {
+    font-size: 0.82rem;
+    font-weight: 500;
+  }
+  article.settings-shell /* ───────── Sync-interval row (top of Mailboxes tab) ───────── */
+  .sync-interval-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  article.settings-shell .saved-flash {
+    font-size: 0.78rem;
+    color: var(--c-success, #2f9e6b);
+    opacity: 0.95;
+    transition: opacity 200ms ease;
+  }
+
+  article.settings-shell /* ───────── Mailbox setting groups ───────── */
+  .setting-group {
+    /* First child is flush-top; later groups get a divider above. */
+    padding: 1.1rem 0 0.4rem;
+    border-top: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  }
+  article.settings-shell .setting-group:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  /* Two-up top row: Connection (editable IMAP/SMTP) beside Identity, so
+     the expanded panel uses the full width instead of leaving a gutter.
+     Collapses to a single column on narrow viewports. The grouped
+     sections inside drop their own top divider — the row already sits
+     under the panel's dashed separator. */
+  article.settings-shell .panel-top {
+    display: grid;
+    /* minmax(0, 1fr) — NOT plain 1fr — so each column can shrink below
+       its content's intrinsic min-width. With plain 1fr (min-width:
+       auto) a wide child (swatch row / signature) blows past its track
+       and overlaps the neighbouring column. */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.4rem;
+    align-items: start;
+  }
+  article.settings-shell .panel-top .setting-group {
+    padding-top: 0;
+    border-top: 0;
+    min-width: 0;       /* let the grid track, not the content, set width */
+  }
+  @media (max-width: 720px) {
+    article.settings-shell .panel-top { grid-template-columns: 1fr; gap: 1.1rem; }
+  }
+
+  /* host + port pair: host takes the room, port is a fixed narrow box.
+     minmax(0,1fr) keeps a long hostname from overflowing the input. */
+  article.settings-shell .server-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 5.5rem;
+    gap: 0.45rem;
+  }
+  /* The base .std-input carries min-width: 14rem; inside the two-up grid
+     that floor lets the host input overflow its track and shove the port
+     box into the Identity column. Clear it so the cell, not the content,
+     sets the width. */
+  article.settings-shell .server-grid .std-input {
+    min-width: 0;
+  }
+  article.settings-shell .std-input.port {
+    text-align: center;
+  }
+  article.settings-shell .server-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 0.5rem;
+  }
+  article.settings-shell .group-title {
+    margin: 0 0 0.85rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--text-muted, rgba(255, 255, 255, 0.55));
+  }
+  article.settings-shell /* Nested fields visually subordinate to their parent (e.g. backfill
+     purge under server retention, "Also purge categories" under that). */
+  .field.nested {
+    margin-left: 0.9rem;
+    padding-left: 0.9rem;
+    border-left: 2px solid var(--border, rgba(255, 255, 255, 0.08));
+  }
+  article.settings-shell /* About: dense definition list for read-only metadata. */
+  .about-group {
+    padding-top: 0.9rem;
+    padding-bottom: 0.2rem;
+    opacity: 0.85;
+  }
+  article.settings-shell .about-grid {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 0.4rem 1.2rem;
+    margin: 0;
+    font-size: 0.82rem;
+  }
+  article.settings-shell .about-grid dt {
+    font-weight: 500;
+    color: var(--text-muted, rgba(255, 255, 255, 0.55));
+  }
+  article.settings-shell .about-grid dd {
+    margin: 0;
+  }
+  article.settings-shell .about-grid dd .muted {
+    margin-left: 0.4rem;
+    opacity: 0.6;
+  }
+
+  article.settings-shell .purge-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.55rem;
+    flex-wrap: wrap;
+  }
+  article.settings-shell .purge-status {
+    margin-top: 0.55rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    line-height: 1.4;
+    background: var(--surface-2, rgba(255, 255, 255, 0.04));
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.08));
+  }
+  article.settings-shell .purge-status[data-state='running'] {
+    border-color: var(--accent, #6ea8fe);
+  }
+  article.settings-shell .purge-status[data-state='failed'] {
+    border-color: #c4554d;
+  }
+  article.settings-shell .purge-status strong {
+    margin-right: 0.4rem;
+  }
+  article.settings-shell .link-btn {
+    background: none;
+    border: 0;
+    padding: 0;
+    font: inherit;
+    font-size: 0.75rem;
+    color: inherit;
+    opacity: 0.65;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    margin-left: 0.3rem;
+  }
+  article.settings-shell .link-btn:hover { opacity: 1; }
+
+  article.settings-shell .preview-line {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  article.settings-shell .preview-line code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.8rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.4rem;
+    background: color-mix(in oklab, currentColor 6%, transparent);
+  }
+
+  article.settings-shell /* ---- Buttons and save bar ---- */
+  .actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.55rem;
+    border-top: 1px dashed color-mix(in oklab, currentColor 8%, transparent);
+    flex-wrap: wrap;
+  }
+  article.settings-shell .save-bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  article.settings-shell .btn {
+    display: inline-block;
+    padding: 0.52rem 1.05rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: transparent;
+    color: inherit;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  article.settings-shell .btn:hover { background: color-mix(in oklab, currentColor 8%, transparent); }
+  article.settings-shell .btn.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+  article.settings-shell .btn.primary:hover:not(:disabled) {
+    filter: brightness(0.96);
+  }
+  article.settings-shell .btn.primary:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  article.settings-shell .btn.ghost {
+    opacity: 0.6;
+  }
+  article.settings-shell .btn.danger {
+    border-color: color-mix(in oklab, crimson 35%, transparent);
+    color: color-mix(in oklab, crimson 80%, currentColor 20%);
+  }
+  article.settings-shell .btn.danger:hover { background: color-mix(in oklab, crimson 12%, transparent); }
+
+  article.settings-shell .add-link {
+    display: inline-block;
+    font-size: 0.83rem;
+    color: inherit;
+    opacity: 0.65;
+    text-decoration: none;
+  }
+  article.settings-shell .add-link:hover { opacity: 1; }
+
+  article.settings-shell .muted { opacity: 0.55; font-size: 0.85rem; }
+

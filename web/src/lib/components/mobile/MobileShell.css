@@ -1,0 +1,157 @@
+.mobile-app {
+    display: flex;
+    flex-direction: column;
+    height: 100dvh;
+    width: 100%;
+    background: var(--bg);
+    overflow: hidden;
+
+  .top-bar {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.4rem 0.55rem;
+    padding-top: max(0.35rem, env(safe-area-inset-top));
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 40;
+  }
+  .icon-btn {
+    background: transparent;
+    border: 0;
+    color: var(--fg);
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border-radius: 999px;
+    cursor: pointer;
+    touch-action: manipulation;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .icon-btn:hover,
+  .icon-btn:active { background: var(--row-hover); }
+
+  /* Search overlay — replaces the whole top-bar while active. Same
+     vertical rhythm as the normal bar so the layout doesn't jump. */
+  .top-bar.search-bar {
+    gap: 0.5rem;
+    padding: 0.4rem 0.55rem;
+    padding-top: max(0.4rem, env(safe-area-inset-top));
+  }
+  .search-input {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: var(--surface-2, color-mix(in oklab, currentColor 6%, var(--surface)));
+    color: var(--fg);
+    font: inherit;
+    font-size: 0.95rem;
+  }
+  .search-input:focus {
+    outline: none;
+    border-color: color-mix(in oklab, var(--accent) 50%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 18%, transparent);
+  }
+
+  /* Brand bar (.brand-bar, .brand-link, .brand-dot, .brand-logo,
+     .brand-actions) lives in MobileBrandBar.svelte. View strip
+     (.view-strip, .view-chip) lives in MobileViewStrip.svelte. */
+
+  /* Telegram-style floating nav pill. Raised off the viewport edge,
+     rounded, with a soft shadow so it reads as an overlay layer rather
+     than chrome. */
+  .bottom-nav {
+    position: fixed;
+    left: 0.75rem;
+    right: 0.75rem;
+    bottom: calc(0.55rem + env(safe-area-inset-bottom));
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: color-mix(in oklab, var(--surface) 94%, transparent);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    padding: 0.35rem;
+    box-shadow:
+      0 14px 34px rgba(0, 0, 0, 0.22),
+      0 4px 10px rgba(0, 0, 0, 0.10);
+    z-index: 25;
+  }
+  .tab {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: 52px;
+    padding: 0.34rem 0.25rem;
+    background: transparent;
+    border: 0;
+    border-radius: 16px;
+    color: var(--muted);
+    cursor: pointer;
+    touch-action: manipulation;
+    transition: background 160ms ease, color 160ms ease;
+  }
+  .tab:active {
+    background: var(--row-hover);
+    transform: scale(0.97);
+  }
+  .tab:disabled { opacity: 0.4; cursor: default; }
+  .tab.active {
+    color: var(--accent);
+    background: color-mix(in oklab, var(--accent) 12%, transparent);
+  }
+  /* Compose is the primary action — give it the filled accent treatment
+     so it pops the way a FAB would, while staying inside the nav pill. */
+  .tab.tab-compose .glyph {
+    width: 36px;
+    height: 36px;
+    border-radius: 12px;
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 4px 10px color-mix(in oklab, var(--accent) 38%, transparent);
+  }
+  .tab.tab-compose .glyph svg {
+    width: 20px;
+    height: 20px;
+  }
+  .tab.tab-compose .lbl {
+    color: var(--fg);
+  }
+  .tab.tab-compose:active .glyph {
+    transform: scale(0.94);
+  }
+  .tab .glyph {
+    width: 24px;
+    height: 24px;
+    display: inline-grid;
+    place-items: center;
+  }
+  .tab .glyph svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+  }
+  .tab .lbl {
+    font-size: 0.7rem;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .pass-through {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    min-height: 0;
+    padding-bottom: calc(5.4rem + env(safe-area-inset-bottom));
+  }
+}

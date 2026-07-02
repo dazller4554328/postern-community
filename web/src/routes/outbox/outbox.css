@@ -1,0 +1,181 @@
+article.outbox-shell {
+    max-width: clamp(54rem, 92vw, 96rem);
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 0 2rem;
+    box-sizing: border-box;
+  .page-top {
+    margin-bottom: 0.55rem;
+  }
+  .back {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+  }
+  .back:hover {
+    color: var(--fg);
+  }
+  .hero {
+    padding: 1.3rem 1.4rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 1.3rem;
+    background:
+      radial-gradient(circle at top right, color-mix(in oklab, var(--accent) 12%, transparent), transparent 35%),
+      linear-gradient(180deg, color-mix(in oklab, var(--surface) 88%, white 12%), var(--surface));
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.08);
+  }
+  .hero .eyebrow {
+    display: inline-block;
+    margin-bottom: 0.55rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .hero h1 {
+    margin: 0 0 0.3rem;
+    font-size: 1.75rem;
+  }
+  .hero p {
+    margin: 0;
+    color: var(--muted);
+    max-width: 44rem;
+  }
+  .panel {
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface);
+    margin-bottom: 1rem;
+  }
+  .section-head h2 {
+    margin: 0 0 0.2rem;
+    font-size: 1.05rem;
+  }
+  .section-head p {
+    margin: 0 0 0.8rem;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+  .section-head.with-action {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .section-head.with-action > div {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .section-head.with-action .btn {
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+  }
+  .rows {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .row {
+    border: 1px solid var(--border);
+    border-radius: 0.65rem;
+    padding: 0.6rem 0.9rem;
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--surface);
+  }
+  .row.status-sending {
+    border-color: color-mix(in oklab, var(--accent) 50%, transparent);
+    background: color-mix(in oklab, var(--accent) 7%, var(--surface));
+  }
+  .row.status-failed {
+    border-color: color-mix(in oklab, crimson 35%, transparent);
+    background: color-mix(in oklab, crimson 6%, var(--surface));
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.45rem;
+  }
+  .summary {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+    flex: 1;
+  }
+  .summary .subject {
+    font-size: 0.95rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .summary .to {
+    font-size: 0.82rem;
+    color: var(--muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .summary .eta {
+    font-size: 0.78rem;
+    color: color-mix(in oklab, var(--accent) 60%, var(--fg) 40%);
+    font-variant-numeric: tabular-nums;
+  }
+  .summary .when {
+    font-size: 0.78rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .actions {
+    display: flex;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+  .btn {
+    padding: 0.4rem 0.75rem;
+    border-radius: 0.45rem;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--fg);
+    cursor: pointer;
+    font-size: 0.82rem;
+  }
+  .btn.ghost {
+    background: transparent;
+  }
+  .btn.danger {
+    border-color: color-mix(in oklab, crimson 45%, transparent);
+    color: color-mix(in oklab, crimson 70%, var(--fg) 30%);
+  }
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .err {
+    padding: 0.6rem 0.9rem;
+    border-radius: 0.6rem;
+    background: color-mix(in oklab, crimson 10%, var(--surface));
+    color: color-mix(in oklab, crimson 70%, var(--fg) 30%);
+    margin-bottom: 1rem;
+  }
+  .err-detail {
+    font-size: 0.78rem;
+    color: var(--muted);
+  }
+  .err-detail code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    background: color-mix(in oklab, currentColor 5%, transparent);
+    padding: 0.05rem 0.3rem;
+    border-radius: 0.2em;
+  }
+  .muted {
+    color: var(--muted);
+    margin: 0;
+  }
+}

@@ -1,0 +1,14 @@
+-- Per-request output-token cap for Ask Datas. NULL falls back to
+-- the in-code default (2000). Surfaced as a dropdown in Settings →
+-- AI so users on reasoning models (gpt-5*, o-series) — which spend
+-- most of the budget on internal "thinking" tokens — can push the
+-- cap higher when answers come back empty, while users on classic
+-- models can keep it tight to control cost. Stored as INTEGER and
+-- the read-side clamps to a sane range so a hand-edited value can't
+-- send absurd budgets to the provider.
+--
+-- Why this is its own migration rather than living in 0047:
+-- migrations are append-only. 0047 was already applied on existing
+-- deployments before this column was added; folding it back into
+-- 0047 would silently fail to run and leave the schema desynced.
+ALTER TABLE ai_settings ADD COLUMN chat_max_tokens INTEGER;

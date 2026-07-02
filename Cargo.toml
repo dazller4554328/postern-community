@@ -1,0 +1,70 @@
+[workspace]
+resolver = "2"
+members = ["server"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.87"
+license = "Apache-2.0"
+repository = "https://github.com/dazller4554328/postern"
+authors = ["Postern contributors"]
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+
+[workspace.lints.clippy]
+# We opt into the pedantic group for its high-value checks, then carve out
+# the lints that are pure cosmetics or fire on deliberate, reviewed code.
+# Each carve-out below is a conscious policy choice, not a deferred TODO.
+pedantic = { level = "warn", priority = -1 }
+module_name_repetitions = "allow"
+missing_errors_doc = "allow"
+missing_panics_doc = "allow"
+
+# Doc-prose cosmetics — backtick/indentation nits in comments, no signal.
+doc_markdown = "allow"
+doc_lazy_continuation = "allow"
+doc_overindented_list_items = "allow"
+doc_link_with_quotes = "allow"
+empty_line_after_doc_comments = "allow"
+
+# Numeric casts: timestamps/sizes/ids are bounded in practice; the i64↔u32/
+# usize churn these demand adds casts without buying safety here.
+cast_possible_truncation = "allow"
+cast_sign_loss = "allow"
+cast_possible_wrap = "allow"
+
+# Style preferences we don't want to enforce mechanically.
+manual_let_else = "allow"
+items_after_statements = "allow"
+too_many_lines = "allow"
+too_many_arguments = "allow"
+match_same_arms = "allow"
+match_wildcard_for_single_variants = "allow"
+needless_continue = "allow"
+default_trait_access = "allow"
+map_unwrap_or = "allow"
+unreadable_literal = "allow"
+similar_names = "allow"
+format_push_string = "allow"
+assigning_clones = "allow"
+case_sensitive_file_extension_comparisons = "allow"
+unnecessary_debug_formatting = "allow"
+
+# Type/signature shapes that are deliberate in this codebase (uniform
+# Result-returning handlers, flag/config structs, tri-state Options).
+unnecessary_wraps = "allow"
+struct_excessive_bools = "allow"
+struct_field_names = "allow"
+option_option = "allow"
+needless_pass_by_value = "allow"
+ref_option = "allow"
+trivially_copy_pass_by_ref = "allow"
+type_complexity = "allow"
+unused_async = "allow"
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+strip = "symbols"

@@ -1,0 +1,82 @@
+Hi {$client_first_name},
+
+Your {$service_product_name} license is active. The key is:
+
+  {$service_username}
+
+You install Postern on your own VPS or home server -- there is no Postern
+cloud. The bootstrap below does everything in one command.
+
+
+1. PICK A HOST
+
+Ubuntu 22.04 / 24.04 LTS or Debian 12, 2 vCPU, 4 GB RAM (or 2 GB + swap),
+20 GB disk. A Hetzner CX22 (~EUR 4/month) is plenty. Full requirements:
+
+  https://docs.postern.email/install/
+
+
+2. INSTALL TAILSCALE
+
+This is how you'll reach Postern from your phone -- no public DNS or
+port-forwarding. SSH into your host and run:
+
+  curl -fsSL https://tailscale.com/install.sh | sh
+  sudo tailscale up
+
+Open the URL it prints, sign in to your free Tailscale account, then
+generate an auth key at:
+
+  https://login.tailscale.com/admin/settings/keys
+
+Tick "Reusable" + "Ephemeral". Keep that tskey-auth-... value handy.
+
+
+3. INSTALL POSTERN
+
+Still in the host's SSH session:
+
+  curl -fsSL https://updates.postern.email/install.sh \
+    | sudo LICENSE={$service_username} bash
+
+The bootstrap validates your license, downloads the signed Pro tarball
+(verifies the Ed25519 signature before extracting), then prompts for the
+Tailscale auth key. Total time: ~10 minutes including the first build.
+
+When it's done, the script prints a URL like
+https://postern.<your-tailnet>.ts.net. Open it in any browser on a device
+that's also on your tailnet (phone, laptop) to reach Postern's first-boot
+screen.
+
+
+4. FIRST-BOOT SETUP
+
+  1. Set a master password. This derives the encryption key for the
+     SQLCipher vault -- Postern NEVER stores it. If you forget it, your
+     mail is unrecoverable. Put it in your password manager BEFORE you
+     click continue.
+
+  2. Add your first mailbox. The wizard prefills IMAP/SMTP for Gmail,
+     Fastmail, iCloud, and ProtonMail (via Bridge). Gmail needs an app
+     password (https://support.google.com/accounts/answer/185833) -- the
+     regular account password won't work for IMAP.
+
+  3. Activate your license. Go to Settings -> Updates; the key is
+     already pre-filled, just click Activate.
+
+Initial IMAP sync runs in the background. Empty mailbox: seconds. A
+decade of Gmail: an hour or two.
+
+
+RESOURCES
+
+  Full install + day-2 docs:    https://docs.postern.email/install/
+  Home-server / NUC / Pi 5:     https://docs.postern.email/install/home-server/
+  Backups, VPN, AI features:    https://docs.postern.email/
+  Support / billing:            {$ticket_url}
+
+Reply to this email or open a ticket if you get stuck.
+
+Welcome aboard.
+
+{$signature}

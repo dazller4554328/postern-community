@@ -1,0 +1,136 @@
+/* Postern docs — landing page hero only.
+   Scoped to .tx-container / .tx-hero so it can't bleed into the
+   rest of the site. Material defaults handle everything else. */
+
+.tx-container {
+  padding-top: 1rem;
+  background:
+    linear-gradient(
+      to bottom,
+      var(--md-primary-fg-color),
+      hsla(228deg, 70%, 41%, 1) 99%,
+      var(--md-default-bg-color) 99%
+    );
+}
+
+[data-md-color-scheme="slate"] .tx-container {
+  background:
+    linear-gradient(
+      to bottom,
+      var(--md-primary-fg-color),
+      hsla(228deg, 70%, 28%, 1) 99%,
+      var(--md-default-bg-color) 99%
+    );
+}
+
+.tx-hero {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  margin: 0 0.8rem;
+  padding: 1rem 0 4rem;
+  color: var(--md-primary-bg-color);
+}
+
+.tx-hero__content {
+  max-width: 22rem;
+  margin: auto 1.5rem auto 0;
+  padding-bottom: 1rem;
+}
+
+.tx-hero__content h1 {
+  margin-bottom: 1rem;
+  color: var(--md-primary-bg-color);
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.tx-hero__content p {
+  margin-bottom: 1.4rem;
+  font-size: 0.85rem;
+  line-height: 1.55;
+  opacity: 0.9;
+}
+
+.tx-hero__image {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  max-width: 60%;
+}
+
+.tx-hero__image img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.18),
+    0 2px 6px rgba(0, 0, 0, 0.10);
+}
+
+/* Buttons — keep Material's style but lift them above the gradient */
+.tx-hero .md-button {
+  margin-top: 0.4rem;
+  margin-right: 0.6rem;
+  color: var(--md-primary-bg-color);
+}
+
+.tx-hero .md-button--primary {
+  background-color: var(--md-primary-bg-color);
+  color: hsla(228deg, 70%, 41%, 1);
+  border-color: var(--md-primary-bg-color);
+}
+
+.tx-hero .md-button:focus,
+.tx-hero .md-button:hover {
+  background-color: var(--md-accent-fg-color);
+  color: var(--md-default-bg-color);
+  border-color: var(--md-accent-fg-color);
+}
+
+/* "On any device" — desktop text + phone screenshot side by side */
+.md-landing-mobile {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2.5rem;
+  align-items: center;
+  margin: 1.5rem 0 0;
+}
+
+.md-landing-mobile img {
+  max-width: 240px;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.18),
+    0 3px 8px rgba(0, 0, 0, 0.10);
+}
+
+@media screen and (max-width: 50em) {
+  .md-landing-mobile {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    justify-items: center;
+    text-align: left;
+  }
+}
+
+/* Stack on small viewports */
+@media screen and (max-width: 60em) {
+  .tx-hero {
+    flex-direction: column;
+    padding-bottom: 2.5rem;
+  }
+  .tx-hero__content {
+    max-width: none;
+    margin-right: 0;
+    text-align: left;
+  }
+  .tx-hero__image {
+    max-width: 100%;
+    margin-top: 1.5rem;
+    justify-content: flex-start;
+  }
+}

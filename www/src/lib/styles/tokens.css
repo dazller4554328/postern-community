@@ -1,0 +1,100 @@
+/*
+ * Postern marketing site — design tokens.
+ * Dark is the product's native theme; light is a first-class alternate.
+ * Brand: navy canvas, teal action, orange "ern" accent.
+ */
+
+:root {
+  /* Brand constants (theme-independent) */
+  --brand-teal: #3ddc97;
+  --brand-teal-bright: #5bf0b0;
+  --brand-orange: #f5a623;
+  --brand-orange-deep: #e08c12;
+
+  /* Type */
+  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-body: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', 'JetBrains Mono', 'Menlo', monospace;
+
+  --text-xs: 0.78rem;
+  --text-sm: 0.875rem;
+  --text-base: clamp(1rem, 0.96rem + 0.18vw, 1.0625rem);
+  --text-lg: clamp(1.125rem, 1.05rem + 0.4vw, 1.25rem);
+  --text-xl: clamp(1.35rem, 1.2rem + 0.7vw, 1.6rem);
+  --text-2xl: clamp(1.75rem, 1.4rem + 1.5vw, 2.4rem);
+  --text-3xl: clamp(2.3rem, 1.7rem + 2.8vw, 3.6rem);
+  --text-hero: clamp(2.8rem, 1.6rem + 5.4vw, 5.4rem);
+
+  /* Rhythm */
+  --space-section: clamp(4.5rem, 3rem + 6vw, 9rem);
+  --maxw: 1180px;
+  --maxw-prose: 60ch;
+
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+
+  /* Motion */
+  --dur-fast: 160ms;
+  --dur: 280ms;
+  --dur-slow: 600ms;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* Elevation */
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 18px 40px -24px rgba(0, 0, 0, 0.7);
+  --shadow-float: 0 40px 90px -40px rgba(0, 0, 0, 0.8);
+}
+
+/* ---------- Dark (default) ---------- */
+:root,
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0a0f1a;
+  --bg-1: #0c1320;
+  --bg-2: #111a2b;
+  --bg-grid: rgba(255, 255, 255, 0.035);
+
+  --surface: rgba(255, 255, 255, 0.035);
+  --surface-2: rgba(255, 255, 255, 0.06);
+  --surface-solid: #111a2b;
+  --border: rgba(255, 255, 255, 0.09);
+  --border-strong: rgba(255, 255, 255, 0.16);
+
+  --text: #e8eef7;
+  --text-muted: #9aa7b8;
+  --text-faint: #6b7888;
+
+  --accent: var(--brand-teal);
+  --accent-ink: #04150d;
+  --glow-teal: rgba(61, 220, 151, 0.22);
+  --glow-orange: rgba(245, 166, 35, 0.18);
+}
+
+/* ---------- Light ---------- */
+[data-theme='light'] {
+  color-scheme: light;
+  --bg: #f6f8fb;
+  --bg-1: #ffffff;
+  --bg-2: #eef2f8;
+  --bg-grid: rgba(12, 19, 32, 0.04);
+
+  --surface: rgba(12, 19, 32, 0.025);
+  --surface-2: rgba(12, 19, 32, 0.05);
+  --surface-solid: #ffffff;
+  --border: rgba(12, 19, 32, 0.1);
+  --border-strong: rgba(12, 19, 32, 0.18);
+
+  --text: #0c1320;
+  --text-muted: #4a596b;
+  --text-faint: #7a8799;
+
+  --accent: #16a567;
+  --accent-ink: #ffffff;
+  --glow-teal: rgba(61, 220, 151, 0.18);
+  --glow-orange: rgba(245, 166, 35, 0.16);
+
+  --shadow-card: 0 1px 0 rgba(255, 255, 255, 0.6) inset, 0 16px 36px -26px rgba(12, 19, 32, 0.4);
+  --shadow-float: 0 40px 80px -44px rgba(12, 19, 32, 0.42);
+}

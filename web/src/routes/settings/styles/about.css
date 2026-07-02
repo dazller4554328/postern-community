@@ -1,0 +1,114 @@
+  article.settings-shell /* ---- About ---- */
+  .panel.about dl { margin: 0; font-size: 0.85rem; }
+  article.settings-shell .panel.about dt { font-weight: 500; }
+  article.settings-shell .panel.about dd { margin: 0.2rem 0 0; opacity: 0.75; }
+  article.settings-shell .panel.about a { color: inherit; }
+
+  @media (max-width: 960px) {
+    article.settings-shell .mailbox-panel .panel-top,
+    article.settings-shell .mailbox-settings-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 820px) {
+    article.settings-shell {
+      padding: 0.85rem;
+      padding-bottom: calc(1rem + env(safe-area-inset-bottom));
+    }
+    article.settings-shell .hero {
+      grid-template-columns: 1fr;
+      border-radius: 1rem;
+      padding: 1rem;
+    }
+    article.settings-shell .hero h1 {
+      font-size: 1.55rem;
+      letter-spacing: 0;
+    }
+    article.settings-shell .hero-badges { justify-content: flex-start; }
+    article.settings-shell .tab-bar {
+      border-radius: 1rem;
+      scroll-padding-inline: 0.35rem;
+    }
+    article.settings-shell .panel {
+      border-radius: 1rem;
+      padding: 1rem 0.85rem;
+    }
+    article.settings-shell .row { flex-direction: column; align-items: stretch; }
+    article.settings-shell .account-row { flex-wrap: wrap; }
+    article.settings-shell .account-id strong,
+    article.settings-shell .account-id .muted {
+      overflow-wrap: anywhere;
+    }
+    article.settings-shell .account-panel {
+      padding: 0.25rem 0.75rem 0.85rem;
+    }
+    article.settings-shell .mailbox-panel {
+      padding: 0.75rem;
+    }
+    article.settings-shell .mailbox-settings-grid {
+      grid-template-columns: 1fr;
+    }
+    article.settings-shell .mailbox-panel .setting-group {
+      padding: 0.85rem;
+    }
+    article.settings-shell .avatar-field {
+      grid-template-columns: 1fr;
+      justify-items: start;
+      padding: 0.8rem;
+    }
+    article.settings-shell .seed-row {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    article.settings-shell .std-select,
+    article.settings-shell .std-input {
+      min-width: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    article.settings-shell .pill-choice {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    article.settings-shell .font-grid,
+    article.settings-shell .view-choice {
+      grid-template-columns: 1fr;
+    }
+    article.settings-shell .actions { flex-direction: column; align-items: stretch; }
+    article.settings-shell .save-bar { justify-content: flex-end; }
+    article.settings-shell .change-pw input { width: 100%; }
+  }
+
+  article.settings-shell .import-drop {
+    border: 2px dashed var(--c-border, #d0d7de);
+    border-radius: 10px;
+    padding: 2rem 1rem;
+    text-align: center;
+    cursor: pointer;
+    transition: background 120ms, border-color 120ms;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    align-items: center;
+  }
+  article.settings-shell .import-drop:hover,
+  article.settings-shell .import-drop:focus-visible {
+    border-color: var(--c-accent, #3b82f6);
+    background: var(--c-hover, rgba(59, 130, 246, 0.04));
+    outline: none;
+  }
+  article.settings-shell .import-drop.drag-over {
+    border-color: var(--c-accent, #3b82f6);
+    background: var(--c-hover, rgba(59, 130, 246, 0.08));
+  }
+
+  article.settings-shell .import-report {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    background: var(--c-surface-2, rgba(0, 0, 0, 0.03));
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    font-size: 0.95rem;
+  }

@@ -1,0 +1,123 @@
+article.rules-shell {
+    width: 100%;
+    max-width: clamp(60rem, 94vw, 110rem);
+    margin: 0 auto;
+    padding: 1.25rem 2rem 2.75rem;
+    box-sizing: border-box;
+    .hero { grid-template-columns: 1fr; }
+    .hero-badges { justify-content: flex-start; }
+    .rule-head { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+  .page-top { margin-bottom: 0.9rem; }
+  .back { display: inline-block; color: inherit; opacity: 0.62; text-decoration: none; font-size: 0.85rem; }
+  .back:hover { opacity: 1; }
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 1.35rem;
+    background:
+      radial-gradient(circle at top right, color-mix(in oklab, var(--accent) 12%, transparent), transparent 32%),
+      linear-gradient(180deg, color-mix(in oklab, var(--surface) 88%, white 12%), var(--surface));
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.08);
+  }
+  .eyebrow {
+    display: inline-block;
+    margin-bottom: 0.55rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  .hero h1 { font-size: 2rem; font-weight: 650; margin: 0 0 0.4rem; letter-spacing: -0.03em; }
+  .hero p { font-size: 0.9rem; color: var(--muted); margin: 0; line-height: 1.55; max-width: 44rem; }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 0.45rem; align-content: start; justify-content: flex-end; }
+  .hero-chip {
+    display: inline-flex; align-items: center; padding: 0.42rem 0.72rem;
+    border-radius: 999px; background: color-mix(in oklab, var(--surface-2) 82%, transparent);
+    border: 1px solid color-mix(in oklab, currentColor 8%, transparent); font-size: 0.72rem; font-weight: 600;
+  }
+  .muted { opacity: 0.55; font-size: 0.88rem; }
+
+  ul.rules { list-style: none; margin: 0 0 1.5rem; padding: 0; display: flex; flex-direction: column; gap: 0.65rem; }
+  ul.rules li {
+    padding: 1rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    background: color-mix(in oklab, var(--surface) 96%, transparent);
+  }
+  ul.rules li.disabled { opacity: 0.5; }
+  .rule-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem; }
+  .rule-head strong { font-size: 0.92rem; }
+  .rule-account { font-size: 0.72rem; opacity: 0.55; font-family: ui-monospace, monospace; }
+  .rule-desc { font-size: 0.82rem; opacity: 0.8; margin-bottom: 0.5rem; }
+  .rule-desc code { background: color-mix(in oklab, currentColor 8%, transparent); padding: 0.1em 0.35em; border-radius: 0.2em; font-size: 0.88em; }
+  .rule-actions { display: flex; gap: 0.4rem; }
+  .rule-actions button {
+    font: inherit; font-size: 0.75rem; padding: 0.25rem 0.6rem;
+    border: 1px solid var(--border); background: transparent; color: inherit;
+    border-radius: 999px; cursor: pointer;
+  }
+  .rule-actions button:hover { background: color-mix(in oklab, currentColor 6%, transparent); }
+  .rule-actions button.danger { color: color-mix(in oklab, crimson 80%, currentColor); border-color: color-mix(in oklab, crimson 30%, transparent); }
+  .rule-actions button.danger:hover { background: color-mix(in oklab, crimson 10%, transparent); }
+
+  .rule-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    align-items: center;
+    margin-bottom: 1rem;
+  }
+  .apply-btn {
+    font: inherit; font-size: 0.82rem; padding: 0.45rem 0.85rem;
+    border: 1px solid var(--border); background: transparent; color: inherit;
+    border-radius: 0.35rem; cursor: pointer; opacity: 0.8;
+  }
+  .apply-btn:hover:not(:disabled) { background: color-mix(in oklab, currentColor 6%, transparent); opacity: 1; }
+  .apply-btn:disabled { opacity: 0.5; cursor: progress; }
+  .apply-result {
+    font-size: 0.8rem; opacity: 0.7;
+  }
+  .add-btn {
+    font: inherit; font-size: 0.88rem; padding: 0.55rem 1rem;
+    border: 1px dashed var(--border); background: transparent; color: inherit;
+    border-radius: 999px; cursor: pointer; opacity: 0.75;
+  }
+  .add-btn:hover { opacity: 1; background: color-mix(in oklab, currentColor 4%, transparent); }
+
+  .rule-form {
+    border: 1px solid var(--border); border-radius: 1rem;
+    padding: 1.25rem; background: color-mix(in oklab, var(--surface) 96%, transparent);
+    display: flex; flex-direction: column; gap: 0.75rem;
+  }
+  .field, .condition, .action-row {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center;
+  }
+  .field label, .condition label, .action-row label {
+    font-size: 0.78rem; opacity: 0.6; min-width: 5rem;
+  }
+  .rule-form input, .rule-form select {
+    font: inherit; font-size: 0.85rem; padding: 0.4rem 0.6rem;
+    border: 1px solid color-mix(in oklab, currentColor 18%, transparent);
+    background: color-mix(in oklab, var(--surface-2) 72%, transparent);
+    color: inherit; border-radius: 0.8rem; flex: 1; min-width: 8rem;
+  }
+  .rule-form select { flex: 0 0 auto; min-width: auto; }
+  .err { padding: 0.5rem 0.75rem; background: color-mix(in oklab, crimson 12%, transparent); border-left: 2px solid crimson; border-radius: 0 0.3rem 0.3rem 0; font-size: 0.82rem; }
+
+  .form-actions { display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 0.5rem; }
+  .form-actions button {
+    font: inherit; font-size: 0.85rem; padding: 0.45rem 1rem;
+    border: 1px solid var(--border); background: transparent; color: inherit;
+    border-radius: 999px; cursor: pointer;
+  }
+  .form-actions button.primary { background: var(--accent); border-color: var(--accent); color: white; font-weight: 600; }
+  .form-actions button.primary:hover { filter: brightness(0.97); }
+  .form-actions button.ghost:hover { background: color-mix(in oklab, currentColor 6%, transparent); }
+
+  @media (max-width: 820px) {
+}
