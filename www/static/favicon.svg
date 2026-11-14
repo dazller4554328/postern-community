@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
+  <rect width="48" height="48" rx="11" fill="#0a0f1a" />
+  <!-- envelope / gatehouse outline -->
+  <path
+    d="M9 20.5 24 10l15 10.5V38a1.5 1.5 0 0 1-1.5 1.5h-27A1.5 1.5 0 0 1 9 38V20.5Z"
+    stroke="#e6edf6"
+    stroke-width="2.1"
+    stroke-linejoin="round"
+  />
+  <!-- envelope flap V -->
+  <path d="M9.6 20.8 24 31l14.4-10.2" stroke="#e6edf6" stroke-width="2.1" stroke-linejoin="round" />
+  <!-- the open postern door, lit -->
+  <path d="M21 24.5h6.4l1.6 15h-9.6l1.6-15Z" fill="#f5a623" />
+  <!-- keyhole -->
+  <circle cx="24" cy="30" r="1.7" fill="#0a0f1a" />
+  <path d="M23.1 30.6h1.8l.5 4h-2.8l.5-4Z" fill="#0a0f1a" />
+</svg>

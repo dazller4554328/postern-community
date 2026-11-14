@@ -1,0 +1,197 @@
+  .filter-chips {
+    display: inline-flex;
+    background: color-mix(in oklab, var(--surface-2) 85%, transparent);
+    border: 1px solid color-mix(in oklab, currentColor 8%, transparent);
+    border-radius: 999px;
+    padding: 0.2rem;
+  }
+  .filter-chips button {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.38rem 0.72rem;
+    cursor: pointer;
+    border-radius: 999px;
+    opacity: 0.7;
+  }
+  .filter-chips button.active {
+    background: var(--surface);
+    opacity: 1;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+  .display-tools {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.2rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--surface-2) 78%, transparent);
+    border: 1px solid color-mix(in oklab, currentColor 8%, transparent);
+  }
+  .icon-btn {
+    border: 1px solid transparent;
+    background: transparent;
+    color: inherit;
+    font-size: 1rem;
+    padding: 0.42rem 0.62rem;
+    cursor: pointer;
+    opacity: 0.7;
+    border-radius: 999px;
+    line-height: 1;
+  }
+  .icon-btn:hover {
+    opacity: 1;
+    background: color-mix(in oklab, currentColor 8%, transparent);
+    border-color: color-mix(in oklab, currentColor 10%, transparent);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.05);
+  }
+  .sidebar-toggle {
+    background: color-mix(in oklab, var(--surface-2) 78%, transparent);
+    border-color: color-mix(in oklab, currentColor 8%, transparent);
+  }
+
+  .list-scroll {
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+    padding: 0.4rem 0.5rem 0.8rem;
+  }
+  /* ── Bulk-action bar ─────────────────────────────────────────────
+     Shown above the flat message list whenever one or more rows are
+     checked. Sticks to the top of the list pane so actions stay
+     in reach as the user scrolls through a long mailbox. */
+  .bulk-bar {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0.85rem;
+    margin-bottom: 0.5rem;
+    border-radius: 0.8rem;
+    background: color-mix(in oklab, var(--accent) 14%, var(--surface));
+    border: 1px solid color-mix(in oklab, var(--accent) 40%, transparent);
+    box-shadow: 0 8px 20px color-mix(in oklab, black 10%, transparent);
+    font-size: 0.82rem;
+  }
+  .bulk-all {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .bulk-all input[type='checkbox'] {
+    width: 1rem;
+    height: 1rem;
+    accent-color: var(--accent);
+  }
+  .bulk-count {
+    opacity: 0.9;
+  }
+  .bulk-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+  .bulk-actions button {
+    padding: 0.3rem 0.65rem;
+    border-radius: 0.4rem;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: inherit;
+    font: inherit;
+    font-size: 0.76rem;
+    cursor: pointer;
+  }
+  .bulk-actions button:hover:not(:disabled) {
+    background: color-mix(in oklab, var(--accent) 12%, var(--surface));
+    border-color: color-mix(in oklab, var(--accent) 40%, var(--border));
+  }
+  .bulk-actions button.danger {
+    color: color-mix(in oklab, #ef4444 85%, currentColor);
+    border-color: color-mix(in oklab, #ef4444 30%, var(--border));
+  }
+  .bulk-actions button.danger:hover:not(:disabled) {
+    background: color-mix(in oklab, #ef4444 12%, var(--surface));
+    border-color: color-mix(in oklab, #ef4444 55%, var(--border));
+  }
+  .bulk-actions button.linklike {
+    border-color: transparent;
+    background: transparent;
+    opacity: 0.7;
+  }
+  .bulk-actions button.linklike:hover {
+    opacity: 1;
+    text-decoration: underline;
+  }
+
+  ul.msg-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  li {
+    display: flex;
+    align-items: stretch;
+    border: 1px solid color-mix(in oklab, currentColor 8%, transparent);
+    border-radius: 0.95rem;
+    overflow: hidden;
+    background: color-mix(in oklab, var(--surface) 92%, transparent);
+    box-shadow:
+      inset 0 1px 0 color-mix(in oklab, white 3%, transparent),
+      0 10px 24px color-mix(in oklab, black 7%, transparent);
+    transition: background 120ms, border-color 120ms, box-shadow 120ms, transform 120ms;
+  }
+  li.checked {
+    background: color-mix(in oklab, var(--accent) 9%, var(--surface));
+    border-color: color-mix(in oklab, var(--accent) 45%, transparent);
+  }
+
+  /* Checkbox lives alongside the row as its own flex cell so we
+     don't have to nest an interactive input inside the row button
+     (invalid HTML). Sits on the RIGHT edge — hidden by default,
+     revealed on hover or whenever any row is already checked. */
+  .row-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.1rem;
+    flex-shrink: 0;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 120ms;
+    /* Fade from transparent → surface to make room for the checkbox
+       without a hard visual seam against the row's meta column. */
+    background: linear-gradient(
+      90deg,
+      transparent,
+      color-mix(in oklab, var(--surface) 70%, transparent) 30%
+    );
+  }
+  .row-check input[type='checkbox'] {
+    width: 1rem;
+    height: 1rem;
+    cursor: pointer;
+    accent-color: var(--accent);
+    margin: 0;
+  }
+  li:hover .row-check,
+  li.checked .row-check,
+  ul.msg-list.bulk-active .row-check {
+    opacity: 1;
+  }
+
+  /* Envelope indicator. Read = outlined glyph in muted grey; unread =
+     solid glyph tinted with the receiving mailbox's --pill-color so
+     each mailbox is visually distinct in a unified inbox. The colour
+     comes through currentColor — set on .envelope, inherited by the
+     SVG fill/stroke. */

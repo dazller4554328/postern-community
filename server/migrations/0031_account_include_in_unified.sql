@@ -1,0 +1,14 @@
+-- Per-account toggle for the Unified views.
+--
+-- When 0, the account's messages are EXCLUDED from:
+--   * unifiedCounts() (the count badges on the top Inbox/Sent/etc)
+--   * the "All mail" aggregate row
+--   * unified-scope message listing
+--
+-- The per-account folders still render in the sidebar and sync as
+-- normal. Use case: a throwaway account you want to keep configured
+-- but out of the "one inbox" view.
+--
+-- Defaults to 1 (included) so every existing account keeps its
+-- current behaviour after migration.
+ALTER TABLE accounts ADD COLUMN include_in_unified INTEGER NOT NULL DEFAULT 1;

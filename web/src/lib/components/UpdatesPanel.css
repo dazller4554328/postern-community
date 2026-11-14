@@ -1,0 +1,178 @@
+.panel-body {
+
+  .card {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    border-radius: 0.85rem;
+    padding: 1rem 1.2rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+  .card header h3 { margin: 0 0 0.25rem; font-size: 1rem; }
+  .card header p { margin: 0; color: var(--muted); font-size: 0.88rem; }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    align-items: center;
+    min-height: 2rem;
+  }
+  .row.stacked { flex-direction: column; align-items: stretch; gap: 0.4rem; }
+  .label {
+    min-width: 10rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+
+  .key-input {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 0.45rem;
+  }
+  .key-input input {
+    padding: 0.5rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: var(--surface-2);
+    color: var(--fg);
+    font: inherit;
+    font-size: 0.9rem;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+
+  .btn {
+    padding: 0.45rem 0.9rem;
+    border: 1px solid var(--border);
+    background: var(--surface-2);
+    color: var(--fg);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.88rem;
+  }
+  .btn:disabled { opacity: 0.55; cursor: progress; }
+  .btn.primary {
+    background: var(--accent);
+    color: white;
+    border-color: transparent;
+    font-weight: 600;
+  }
+
+  .mono {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.85rem;
+  }
+  .small { font-size: 0.8rem; }
+  .muted { color: var(--muted); }
+
+  .pill {
+    display: inline-block;
+    padding: 0.08rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    background: color-mix(in oklab, var(--accent) 18%, var(--surface-2));
+    color: color-mix(in oklab, var(--accent) 70%, var(--fg) 30%);
+    margin-right: 0.4rem;
+  }
+  .pill.muted {
+    background: var(--surface-2);
+    color: var(--muted);
+  }
+  .pill.accent {
+    background: var(--accent);
+    color: white;
+  }
+  .pill.status-active {
+    background: color-mix(in oklab, #22c55e 22%, var(--surface-2));
+    color: color-mix(in oklab, #22c55e 70%, var(--fg) 30%);
+  }
+  .pill.status-malformed,
+  .pill.status-expired,
+  .pill.status-revoked,
+  .pill.status-not_found,
+  .pill.status-missing,
+  .pill.status-error {
+    background: color-mix(in oklab, crimson 22%, var(--surface-2));
+    color: color-mix(in oklab, crimson 70%, var(--fg) 30%);
+  }
+
+  .inline-msg { margin: 0; font-size: 0.85rem; }
+  .inline-msg.ok { color: color-mix(in oklab, #22c55e 70%, var(--fg) 30%); }
+  .inline-msg.err { color: color-mix(in oklab, crimson 70%, var(--fg) 30%); }
+  .transfer-card {
+    margin-top: 0.6rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
+    border-radius: 0.7rem;
+    background: color-mix(in oklab, var(--accent) 6%, var(--surface-2));
+  }
+  .transfer-card h4 { margin: 0 0 0.35rem; font-size: 0.95rem; }
+  .transfer-card p { margin: 0 0 0.6rem; font-size: 0.85rem; line-height: 1.45; }
+  .transfer-card code { font-size: 0.8rem; }
+  .transfer-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: flex-end;
+  }
+  .window-line { margin: 0.5rem 0 0; }
+
+  .err-bubble {
+    padding: 0.55rem 0.85rem;
+    background: color-mix(in oklab, crimson 10%, var(--surface));
+    color: color-mix(in oklab, crimson 70%, var(--fg) 30%);
+    border-radius: 0.5rem;
+    font-size: 0.88rem;
+    margin: 0;
+  }
+  .ok-bubble {
+    padding: 0.55rem 0.85rem;
+    background: color-mix(in oklab, #22c55e 10%, var(--surface));
+    color: color-mix(in oklab, #22c55e 70%, var(--fg) 30%);
+    border-radius: 0.5rem;
+    font-size: 0.88rem;
+    margin: 0;
+  }
+
+  .update-card {
+    padding: 0.9rem 1rem;
+    border: 1px solid color-mix(in oklab, var(--accent) 40%, var(--border));
+    border-left: 3px solid var(--accent);
+    border-radius: 0.6rem;
+    background: color-mix(in oklab, var(--accent) 6%, var(--surface));
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .update-head { display: flex; gap: 0.55rem; align-items: baseline; }
+  .update-meta { display: flex; flex-wrap: wrap; gap: 0.2rem; color: var(--muted); font-size: 0.82rem; }
+  .notes { margin: 0; color: var(--fg); line-height: 1.45; }
+
+  .status-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: baseline;
+    padding: 0.6rem 0.85rem;
+    border-radius: 0.5rem;
+    font-size: 0.88rem;
+    border: 1px solid var(--border);
+  }
+  .status-card.status-running { background: color-mix(in oklab, var(--accent) 10%, var(--surface)); }
+  .status-card.status-success { background: color-mix(in oklab, #22c55e 10%, var(--surface)); }
+  .status-card.status-failed {
+    background: color-mix(in oklab, crimson 10%, var(--surface));
+    border-color: color-mix(in oklab, crimson 40%, var(--border));
+  }
+
+  /* Modal + restart-overlay styles live in updates/UpdateConfirmDialog.svelte
+     and updates/RestartingOverlay.svelte. */
+  @media (max-width: 900px) {
+    .key-input { grid-template-columns: 1fr; }
+    .label { min-width: 0; }
+  }
+}

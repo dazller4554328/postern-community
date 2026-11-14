@@ -1,0 +1,12 @@
+-- Per-feature chat-model override for the compose-pane "Polish"
+-- rewrite. Stored as a plain TEXT column on ai_settings; NULL or
+-- empty means "use the same model as Ask Datas / chat" — the
+-- existing behaviour, so existing rows keep working untouched.
+--
+-- Why a separate column rather than reusing chat_model: a common
+-- workflow is gpt-4o for Ask (better reasoning over retrieved
+-- excerpts) but gpt-4o-mini for Polish (cheaper and faster for
+-- single-shot rewrites). The provider stays whichever is configured
+-- under provider_kind — switching providers per-feature would
+-- require its own API key, which is more surface than this fixes.
+ALTER TABLE ai_settings ADD COLUMN polish_chat_model TEXT;

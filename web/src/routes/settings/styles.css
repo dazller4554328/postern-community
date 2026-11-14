@@ -1,0 +1,19 @@
+/* Settings styling — split into focused area files for navigability.
+   +page.svelte imports this single entry-point; Vite inlines the
+   @imports at build time, so there's no extra request cost. All rules
+   stay scoped under `article.settings-shell` and the import order below
+   preserves the original cascade. Per-area files:
+     shell        — page container, hero, tab bar
+     panels       — panel shell, section headings, top-level rows
+     account-list — the mailbox accordion list
+     forms        — colour picker, form primitives, mailbox groups, buttons
+     display      — pill/card choice controls (Display tab)
+     vault        — master-password form
+     about        — About tab */
+@import './styles/shell.css';
+@import './styles/panels.css';
+@import './styles/account-list.css';
+@import './styles/forms.css';
+@import './styles/display.css';
+@import './styles/vault.css';
+@import './styles/about.css';

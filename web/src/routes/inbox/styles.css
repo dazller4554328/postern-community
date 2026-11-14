@@ -1,0 +1,16 @@
+/* Inbox styling — split into focused area files for navigability.
+   The +page.svelte still imports this single entry-point as a side-
+   effect; Vite inlines the @imports at build time so there's no extra
+   request cost. Per-area files:
+     shell      — outer page grid + main container card
+     toolbar    — top action toolbar (compose, sync, density, sort, …)
+     panes      — column resizers + content split + pane scaffolding
+     selection  — filter chips + bulk-action bar
+     rows       — message rows + per-column treatment + thread list
+     responsive — every @media block in one place */
+@import './styles/shell.css';
+@import './styles/toolbar.css';
+@import './styles/panes.css';
+@import './styles/selection.css';
+@import './styles/rows.css';
+@import './styles/responsive.css';

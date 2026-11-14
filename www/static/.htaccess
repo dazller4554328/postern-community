@@ -1,0 +1,47 @@
+# Postern marketing site — static hosting rules for Apache.
+# Lives at the landing docroot; survives certbot vhost rewrites.
+# (Cloudflare handles edge compression, so no manual br/gzip negotiation here.)
+
+Options -Indexes +FollowSymLinks
+DirectoryIndex index.html
+
+# ---- Clean URLs: serve /features from features.html ----
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Strip a trailing slash from non-directory requests (/features/ -> /features)
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.+)/$ /$1 [R=301,L]
+
+  # Map an extensionless URL to its .html file when one exists
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME}\.html -f
+  RewriteRule ^(.+)$ $1.html [L]
+</IfModule>
+
+# Unknown paths -> branded 404 shell (with a real 404 status)
+ErrorDocument 404 /404.html
+
+# ---- Security headers ----
+<IfModule mod_headers.c>
+  # HSTS — all postern.email subdomains already serve HTTPS
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), browsing-topics=()"
+  Header always set Cross-Origin-Opener-Policy "same-origin"
+  # The per-page <meta> CSP locks scripts/styles by hash; this header adds the
+  # one directive a meta tag cannot carry — anti-clickjacking framing control.
+  Header always set Content-Security-Policy "frame-ancestors 'none'"
+
+  # ---- Caching ----
+  # Content-hashed bundles never change — cache hard.
+  <FilesMatch "\.(js|css|woff2?|svg|png|jpe?g|webp|avif)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  # HTML must always revalidate so a deploy is picked up immediately.
+  <FilesMatch "\.html$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>

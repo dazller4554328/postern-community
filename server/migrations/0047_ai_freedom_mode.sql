@@ -1,0 +1,18 @@
+-- Datas response-freedom mode. Lets the user trade refusal-strictness
+-- for helpfulness without ever loosening the action floor (the seven
+-- Commandments stay verbatim regardless).
+--
+--   strict   — RAG-anchored, terse 2–3 sentence answers, refuses
+--              tightly when the question can't be grounded in
+--              indexed mail. Closest to the original Datas.
+--   balanced — default. General world knowledge is fine; draft
+--              suggestions allowed (still cannot SEND); longer
+--              answers when the question warrants it.
+--   open     — same security floor as balanced but with the
+--              terseness cap dropped. Datas can be verbose and
+--              walk through reasoning when the question is
+--              complex.
+--
+-- NULL on existing rows is treated as 'balanced' by the read path
+-- so the default-on path doesn't need a backfill.
+ALTER TABLE ai_settings ADD COLUMN freedom_mode TEXT;

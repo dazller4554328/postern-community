@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b0f1f" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Postern</title>
+    <script>
+      // Apply theme + font prefs BEFORE first paint so there's no flash
+      // of wrong-theme. Tiny inline script — kept in sync with $lib/prefs.ts.
+      (function () {
+        try {
+          var raw = localStorage.getItem('postern.prefs');
+          if (!raw) return;
+          var p = JSON.parse(raw);
+          // Keep in sync with EXPLICIT_THEMES in $lib/prefs.ts.
+          var validThemes = [
+            'light', 'dark', 'cyberpunk',
+            'solarized-light', 'solarized-dark', 'dracula', 'nord',
+            'gruvbox', 'monokai', 'sunset', 'forest', 'rose-pine', 'sepia',
+            'acid-rain', 'synth-candy', 'volcanic', 'abyssal', 'arcade'
+          ];
+          if (p.theme && validThemes.indexOf(p.theme) !== -1) {
+            document.documentElement.dataset.theme = p.theme;
+          } else {
+            delete document.documentElement.dataset.theme;
+          }
+          var stacks = {
+            system: 'ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
+            serif: '"Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif',
+            rounded: '"SF Pro Rounded", ui-rounded, "Nunito", "Quicksand", system-ui, sans-serif',
+            mono: 'ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace'
+          };
+          if (p.font && stacks[p.font]) {
+            document.documentElement.style.setProperty('--font-ui', stacks[p.font]);
+          }
+        } catch (_) {}
+      })();
+    </script>
+    %sveltekit.head%
+  </head>
+  <body data-sveltekit-preload-data="hover">
+    <div style="display: contents">%sveltekit.body%</div>
+  </body>
+</html>
