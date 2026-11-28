@@ -1,0 +1,199 @@
+  article.settings-shell /* ---- Account list ---- */
+  ul.account-list {
+    list-style: none;
+    margin: 0 0 0.75rem;
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+    overflow: hidden;
+    background: var(--surface);
+  }
+  article.settings-shell ul.account-list li {
+    border-bottom: 1px solid var(--border);
+  }
+  article.settings-shell ul.account-list li:last-child { border-bottom: 0; }
+  article.settings-shell ul.account-list li.open {
+    background: color-mix(in oklab, var(--accent) 5%, var(--surface));
+  }
+  article.settings-shell .account-row {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    width: 100%;
+    padding: 0.85rem 1rem;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    text-align: left;
+  }
+  article.settings-shell .account-row:hover {
+    background: color-mix(in oklab, currentColor 3%, transparent);
+  }
+  article.settings-shell ul.account-list li.open .account-row {
+    border-bottom: 1px solid color-mix(in oklab, var(--accent) 22%, var(--border));
+  }
+  article.settings-shell .account-dot {
+    flex-shrink: 0;
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 999px;
+    box-shadow: 0 0 0 2px color-mix(in oklab, currentColor 8%, transparent);
+  }
+  article.settings-shell .account-id {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 0;
+    flex: 1 1 auto;
+    overflow: hidden;
+  }
+  article.settings-shell .account-id strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  article.settings-shell .account-id strong {
+    font-size: 0.9rem;
+    font-weight: 600;
+  }
+  article.settings-shell .account-id .muted {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.74rem;
+    opacity: 0.58;
+  }
+  article.settings-shell .account-id code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.74rem;
+    padding: 0.1rem 0.35rem;
+    border-radius: 0.35rem;
+    background: color-mix(in oklab, currentColor 6%, transparent);
+  }
+  article.settings-shell .account-meta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+  article.settings-shell .dirty-chip {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, goldenrod 18%, transparent);
+    color: color-mix(in oklab, goldenrod 70%, var(--fg));
+    border: 1px solid color-mix(in oklab, goldenrod 22%, transparent);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+  article.settings-shell .status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: color-mix(in oklab, currentColor 4%, transparent);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  article.settings-shell .status-chip.ok {
+    color: color-mix(in oklab, mediumseagreen 65%, var(--fg));
+    background: color-mix(in oklab, mediumseagreen 10%, transparent);
+    border-color: color-mix(in oklab, mediumseagreen 22%, var(--border));
+  }
+  article.settings-shell .status-chip.ok .status-dot {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: currentColor;
+    box-shadow: 0 0 0 2px color-mix(in oklab, mediumseagreen 18%, transparent);
+  }
+  article.settings-shell .status-chip.paused {
+    color: color-mix(in oklab, goldenrod 70%, var(--fg));
+    background: color-mix(in oklab, goldenrod 12%, transparent);
+    border-color: color-mix(in oklab, goldenrod 25%, var(--border));
+  }
+  article.settings-shell .provider-chip {
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: color-mix(in oklab, currentColor 4%, transparent);
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  article.settings-shell .account-row.dirty {
+    box-shadow: inset 3px 0 0 color-mix(in oklab, goldenrod 60%, transparent);
+  }
+  article.settings-shell .chev {
+    display: inline-grid;
+    place-items: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    opacity: 0.5;
+    transition: transform 160ms;
+  }
+  article.settings-shell .chev.rot { transform: rotate(180deg); }
+
+  article.settings-shell .account-panel {
+    padding: 0.25rem 1rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    border-top: 1px dashed color-mix(in oklab, currentColor 10%, transparent);
+  }
+
+  article.settings-shell .avatar-field {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.1rem;
+    align-items: center;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 0.9rem;
+    background: color-mix(in oklab, var(--surface) 96%, transparent);
+  }
+  article.settings-shell .avatar-preview {
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 0.7rem;
+    background:
+      repeating-conic-gradient(
+        color-mix(in oklab, currentColor 5%, transparent) 0 25%,
+        transparent 0 50%
+      ) 50% / 12px 12px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+  }
+  article.settings-shell .avatar-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    image-rendering: -webkit-optimize-contrast;
+  }
+  article.settings-shell .avatar-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    min-width: 0;
+  }
+  article.settings-shell .seed-row {
+    display: flex;
+    gap: 0.45rem;
+    align-items: center;
+  }
+  article.settings-shell .seed-row .std-input {
+    flex: 1;
+    min-width: 0;
+  }
+  article.settings-shell .seed-row .btn {
+    padding: 0.45rem 0.9rem;
+    font-size: 0.78rem;
+  }
+

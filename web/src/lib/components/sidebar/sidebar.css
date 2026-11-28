@@ -1,0 +1,537 @@
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  overflow: hidden;
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  background:
+    linear-gradient(180deg, color-mix(in oklab, var(--surface) 90%, white 10%), var(--surface)),
+    var(--surface);
+  border-right: 1px solid color-mix(in oklab, currentColor 10%, transparent);
+}
+
+/* Advanced-search drawer: sits below the search-box, matches its
+   rounded surface-2 visual so the whole search area reads as one
+   unit rather than a modal over the sidebar. */
+
+.sidebar > nav {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-width: 0;
+  padding: 0 0.55rem 0.85rem;
+  font-size: 0.84rem;
+}
+/* Shared base styles — also used by sidebar/* children. The :global
+   marker lets SidebarTools (and any future sidebar child) inherit
+   these without re-declaring them per-component.
+   Every selector is scoped to `.sidebar` (the root <aside>) so the
+   rules don't leak to mobile shells or anywhere else that happens
+   to use class="row" / "label" / etc. */
+.sidebar .section-label {
+  padding: 0.75rem 0.45rem 0.35rem;
+  font-size: 0.67rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.sidebar .section-label-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+/* Mailboxes header controls — single pill family so +, 'All'/'Non-empty',
+   and 'Collapse'/'Expand' share the same height and visual weight.
+   Icon-only variant (the + button) is a square of the same height. */
+.sidebar .hdr-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 1.55rem;
+  padding: 0 0.55rem;
+  border: 1px solid color-mix(in oklab, currentColor 10%, transparent);
+  background: color-mix(in oklab, var(--surface-2) 70%, transparent);
+  color: inherit;
+  text-decoration: none;
+  border-radius: 999px;
+  font: inherit;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.78;
+  white-space: nowrap;
+  transition: background 120ms, border-color 120ms, opacity 120ms;
+}
+.sidebar .hdr-chip:hover {
+  opacity: 1;
+  background: color-mix(in oklab, var(--accent) 10%, var(--surface));
+  border-color: color-mix(in oklab, var(--accent) 26%, transparent);
+}
+.sidebar .hdr-chip-icon {
+  width: 1.55rem;
+  padding: 0;
+  opacity: 0.65;
+}
+.sidebar .hdr-chip-icon:hover {
+  opacity: 1;
+  color: var(--accent);
+}
+.sidebar .hdr-chip.toggled {
+  opacity: 1;
+  background: color-mix(in oklab, var(--accent) 18%, var(--surface));
+  border-color: color-mix(in oklab, var(--accent) 40%, transparent);
+  color: color-mix(in oklab, currentColor 78%, var(--accent) 22%);
+}
+
+/* Every clickable row shares the same grid: [icon] [label] [badge].
+   :global so sidebar/* children render `<a class="row tool-row">`
+   etc. and inherit the base styling. */
+.sidebar .row {
+  display: grid;
+  grid-template-columns: 16px 1fr auto;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.5rem 0.7rem;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  font-size: 0.84rem;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 0.7rem;
+  margin: 2px 0;
+}
+.sidebar .row:hover {
+  background: color-mix(in oklab, currentColor 6%, transparent);
+}
+.sidebar .row.active {
+  background: color-mix(in oklab, var(--accent) 14%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--accent) 14%, transparent);
+  font-weight: 500;
+}
+.sidebar .row.unread .label {
+  font-weight: 600;
+}
+.sidebar .label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sidebar .all-mail {
+  margin-bottom: 0.55rem;
+  font-weight: 500;
+}
+.sidebar .emphasis-row {
+  background: color-mix(in oklab, var(--surface-2) 82%, transparent);
+}
+.sidebar .all-mail {
+  border: 1px solid color-mix(in oklab, currentColor 8%, transparent);
+  background: color-mix(in oklab, var(--surface) 92%, transparent);
+}
+.sidebar .all-mail:hover {
+  background: var(--row-hover);
+  border-color: color-mix(in oklab, currentColor 14%, transparent);
+}
+.sidebar .all-mail.active {
+  background: var(--row-selected);
+  border-color: color-mix(in oklab, var(--accent) 28%, transparent);
+}
+
+/* :global because SidebarUnifiedViews and SidebarTools both render
+   `<div class="unified-divider">`. */
+.sidebar .unified-divider {
+  height: 1px;
+  margin: 0.55rem 0.45rem 0.2rem;
+  background: color-mix(in oklab, currentColor 10%, transparent);
+}
+
+/* Per-account section — :global so SidebarAccountSection inherits. */
+.sidebar .account {
+  margin-bottom: 0.55rem;
+  padding: 0.08rem 0;
+  border-radius: 0.9rem;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.sidebar .account.collapsed {
+  margin-bottom: 0.35rem;
+  background: transparent;
+}
+.sidebar button.acct-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.58rem 0.72rem;
+  background: color-mix(in oklab, var(--surface-2) 52%, transparent);
+  border: 1px solid color-mix(in oklab, currentColor 8%, transparent);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  border-radius: 0.68rem;
+  margin-top: 0.05rem;
+  box-shadow: inset 0 1px 0 color-mix(in oklab, white 4%, transparent);
+  transition: background 120ms, border-color 120ms;
+}
+.sidebar button.acct-header:hover {
+  background: color-mix(in oklab, var(--surface-2) 70%, transparent);
+  border-color: color-mix(in oklab, currentColor 14%, transparent);
+}
+.sidebar .account:not(.collapsed > .acct-header) {
+  margin-bottom: 0.28rem;
+}
+.sidebar .account-body > .tree-node {
+  margin-left: 0.22rem;
+  margin-right: 0.22rem;
+}
+.sidebar .account:not(.collapsed .tree-row-wrap) {
+  background: transparent;
+  border: 1px solid transparent;
+}
+.sidebar .acct-avatar-wrap {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+.sidebar .acct-color {
+  width: 0.95rem;
+  height: 0.95rem;
+  display: block;
+  border-radius: 999px;
+  box-sizing: border-box;
+  box-shadow:
+    0 0 0 2px color-mix(in oklab, currentColor 8%, transparent),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: transform 140ms ease, opacity 140ms ease;
+}
+.sidebar .acct-header:hover .acct-color {
+  transform: scale(1.08);
+}
+.sidebar .acct-color.collapsed {
+  transform: scale(0.92);
+  opacity: 0.9;
+}
+.sidebar .acct-meta {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.05rem;
+  flex: 1;
+  min-width: 0;
+}
+.sidebar .acct-header .email {
+  font-size: 0.81rem;
+  opacity: 0.95;
+  font-weight: 620;
+  letter-spacing: 0;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sidebar .acct-header .last-sync {
+  font-size: 0.63rem;
+  opacity: 0.54;
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sidebar .acct-chevron {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.25rem;
+  height: 1.25rem;
+  opacity: 0.46;
+  border-radius: 999px;
+  transition: transform 120ms ease, opacity 120ms ease, background 120ms ease;
+}
+.sidebar .acct-chevron.open {
+  transform: rotate(90deg);
+  opacity: 0.75;
+}
+.sidebar .acct-header:hover .acct-chevron {
+  opacity: 0.9;
+  background: color-mix(in oklab, currentColor 8%, transparent);
+}
+.sidebar .acct-header .acct-badge {
+  flex-shrink: 0;
+}
+.sidebar .account-body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.02rem;
+  padding: 0.02rem 0.08rem 0.12rem;
+}
+.sidebar .account-body::before {
+  content: '';
+  position: absolute;
+  left: 1.18rem;
+  top: 0.12rem;
+  bottom: 0.3rem;
+  width: 1px;
+  background: color-mix(in oklab, currentColor 18%, transparent);
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.sidebar .total-count {
+  font-size: 0.72rem;
+  opacity: 0.4;
+  font-variant-numeric: tabular-nums;
+}
+.sidebar .unread-count {
+  background: color-mix(in oklab, var(--accent) 78%, transparent);
+  color: white;
+  padding: 0.1rem 0.48rem;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 0.68rem;
+  min-width: 1ch;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+/* The "/523" tail inside the unread badge, e.g. "16/523".
+   Slightly muted so the unread number stays the focal point. */
+.sidebar .unread-count .total-tail {
+  margin-left: 1px;
+  font-weight: 500;
+  opacity: 0.7;
+}
+
+/* Tree CSS — :global so FolderTreeNode children inherit. Parent
+   still renders the system/category rows + the "New folder" button
+   using these classes, so the rules need to match both surfaces. */
+.sidebar .conn {
+  width: 14px;
+  height: 100%;
+  min-height: 24px;
+  position: relative;
+  flex-shrink: 0;
+  pointer-events: none;
+}
+.sidebar .conn.rail::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid color-mix(in oklab, currentColor 30%, transparent);
+}
+.sidebar .conn.elbow::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  border-left: 1px solid color-mix(in oklab, currentColor 30%, transparent);
+}
+.sidebar .conn.elbow.end::before {
+  bottom: auto;
+  height: 50%;
+}
+.sidebar .conn.elbow::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  right: -1px;
+  top: 50%;
+  border-top: 1px solid color-mix(in oklab, currentColor 30%, transparent);
+}
+.sidebar .tree-row-wrap {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  margin: 0;
+  min-height: 24px;
+  border-radius: 0.45rem;
+}
+.sidebar .row-menu {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0.15rem 0.5rem;
+  opacity: 0;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: opacity 120ms, background 120ms;
+}
+.sidebar .tree-row-wrap:hover .row-menu,
+.sidebar .row-menu:focus-visible {
+  opacity: 0.7;
+}
+.sidebar .row-menu:hover {
+  opacity: 1;
+  background: color-mix(in oklab, currentColor 8%, transparent);
+}
+.sidebar .ctx-menu {
+  position: absolute;
+  right: 0.25rem;
+  top: 100%;
+  z-index: 40;
+  min-width: 10rem;
+  padding: 0.25rem;
+  border: 1px solid var(--border);
+  border-radius: 0.6rem;
+  background: var(--surface);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+}
+.sidebar .ctx-menu button {
+  text-align: left;
+  padding: 0.5rem 0.65rem;
+  font: inherit;
+  font-size: 0.8rem;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+.sidebar .ctx-menu button:hover {
+  background: color-mix(in oklab, currentColor 8%, transparent);
+}
+.sidebar .ctx-menu button.danger {
+  color: color-mix(in oklab, crimson 80%, currentColor 20%);
+}
+.sidebar .ctx-menu button.danger:hover {
+  background: color-mix(in oklab, crimson 12%, transparent);
+}
+.sidebar .inline-form {
+  padding-right: 0.35rem;
+}
+.sidebar .inline-form input {
+  font: inherit;
+  font-size: 0.82rem;
+  width: 100%;
+  padding: 0.28rem 0.5rem;
+  border: 1px solid var(--accent);
+  background: var(--surface);
+  color: inherit;
+  border-radius: 0.35rem;
+}
+.sidebar .tree-chev,
+.sidebar .tree-chev-spacer {
+  width: 14px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0.55;
+  flex-shrink: 0;
+  align-self: center;
+}
+.sidebar .tree-chev {
+  transition: transform 120ms ease;
+  border-radius: 0.25rem;
+}
+.sidebar .tree-chev:hover {
+  opacity: 1;
+  background: color-mix(in oklab, currentColor 8%, transparent);
+}
+.sidebar .tree-chev.open {
+  transform: rotate(90deg);
+}
+.sidebar .tree-row {
+  padding-left: 0.38rem;
+  padding-top: 0.24rem;
+  padding-bottom: 0.24rem;
+  border-radius: 0.36rem;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.38rem;
+}
+.sidebar .tree-row svg {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+.sidebar .tree-row .label {
+  font-size: 0.8rem;
+  line-height: 1.1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sidebar .branch-row {
+  padding-right: 0.48rem;
+}
+.sidebar .branch-row .label {
+  font-weight: 520;
+}
+.sidebar .category-row .label {
+  opacity: 0.82;
+}
+.sidebar .tree-action-row {
+  color: var(--muted);
+}
+.sidebar .tree-action-row:hover,
+.sidebar .tree-action-row:focus-visible {
+  color: inherit;
+}
+.sidebar .new-folder-icon {
+  width: 12px;
+  height: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.2rem;
+  border: 1px solid color-mix(in oklab, currentColor 18%, transparent);
+  font-size: 0.78rem;
+  line-height: 1;
+  opacity: 0.78;
+}
+.sidebar .tree-row-wrap:hover .tree-row {
+  background: color-mix(in oklab, currentColor 4%, var(--surface));
+}
+.sidebar .tree-row.active {
+  background: color-mix(in oklab, var(--accent) 14%, transparent);
+}
+.sidebar .tree-row.grouping .label {
+  opacity: 0.62;
+}
+
+@media (max-width: 900px) {
+  .sidebar .acct-chevron {
+    display: none;
+  }
+  .sidebar .account-body::before {
+    display: none;
+  }
+}
+
+/* + button next to the Mailboxes section header. Takes the place
+   of the old "+ Add mailbox" footer link. */
+.sidebar .section-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}

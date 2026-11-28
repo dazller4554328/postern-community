@@ -1,0 +1,106 @@
+  article.settings-shell {
+    width: 100%;
+    max-width: clamp(60rem, 94vw, 112rem);
+    margin: 0 auto;
+    padding: 1.25rem 2rem 2.75rem;
+    box-sizing: border-box;
+  }
+  article.settings-shell .page-top { margin-bottom: 0.9rem; }
+  article.settings-shell .back {
+    display: inline-block;
+    color: inherit;
+    opacity: 0.62;
+    text-decoration: none;
+    font-size: 0.84rem;
+  }
+  article.settings-shell .back:hover { opacity: 1; }
+
+  article.settings-shell .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--border);
+    border-radius: 1.35rem;
+    background:
+      radial-gradient(circle at top right, color-mix(in oklab, var(--accent) 12%, transparent), transparent 32%),
+      linear-gradient(180deg, color-mix(in oklab, var(--surface) 88%, white 12%), var(--surface));
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.08);
+  }
+  article.settings-shell .eyebrow {
+    display: inline-block;
+    margin-bottom: 0.55rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    font-weight: 700;
+  }
+  article.settings-shell .hero h1 {
+    font-size: 2.1rem;
+    font-weight: 650;
+    letter-spacing: -0.03em;
+    margin: 0 0 0.55rem;
+  }
+  article.settings-shell .hero p {
+    margin: 0;
+    max-width: 46rem;
+    color: var(--muted);
+    line-height: 1.55;
+  }
+  article.settings-shell .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+    align-content: start;
+    justify-content: flex-end;
+  }
+  article.settings-shell .hero-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.42rem 0.72rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--surface-2) 82%, transparent);
+    border: 1px solid color-mix(in oklab, currentColor 8%, transparent);
+    font-size: 0.72rem;
+    font-weight: 600;
+  }
+
+  article.settings-shell /* ---- Tab bar ---- */
+  .tab-bar {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.25rem;
+    margin-bottom: 1rem;
+    padding: 0.3rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--surface-2) 72%, transparent);
+    overflow-x: auto;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+  }
+  article.settings-shell .tab-bar::-webkit-scrollbar { display: none; }
+  article.settings-shell .tab-bar .tab { flex-shrink: 0; }
+  article.settings-shell .tab-bar .tab {
+    font: inherit;
+    font-size: 0.82rem;
+    font-weight: 600;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    padding: 0.52rem 1rem;
+    border-radius: 999px;
+    cursor: pointer;
+    opacity: 0.62;
+    transition: background 120ms, opacity 120ms;
+    white-space: nowrap;
+  }
+  article.settings-shell .tab-bar .tab:hover { opacity: 0.9; }
+  article.settings-shell .tab-bar .tab.active {
+    background: var(--surface);
+    opacity: 1;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.07);
+  }
+
